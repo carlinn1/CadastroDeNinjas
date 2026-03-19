@@ -2,13 +2,11 @@ package dev.java10x.CadastroDeNinjas.entity;
 
 import java.util.List;
 
-import org.hibernate.annotations.ManyToAny;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,24 +15,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_ninjas")
+@Table(name = "tb_missoes")
 @Data // Gera getters, setters, equals, hashCode e toString automaticamente
 @AllArgsConstructor
 @NoArgsConstructor
-public class NinjaModel {
-    
+
+public class MissoesModel{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String email;
-    private int idade;
+    private String nomeMissao;
+    private String dificuldade;
 
-    // Um ninja pode ter várias missões, e uma missão pode ser atribuída a vários ninjas
-    @ManyToAny
-    @JoinColumn(name = "missoes_id") // foreign key para a tabela de missões
-    private MissoesModel missoes;
+    // Uma missão pode ser atribuída a vários ninjas, 
+    // e um ninja pode ter várias missões
 
+    @OneToMany(mappedBy = "missoes")
+    private List<NinjaModel> ninja;
+    
 }
-
-
