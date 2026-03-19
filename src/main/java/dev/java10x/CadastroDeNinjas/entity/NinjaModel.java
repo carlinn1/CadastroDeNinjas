@@ -1,7 +1,5 @@
 package dev.java10x.CadastroDeNinjas.entity;
 
-import java.util.List;
-
 import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Entity;
@@ -12,9 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "tb_ninjas")
