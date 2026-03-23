@@ -28,6 +28,8 @@ public class NinjaModel {
     private String email;
 
     private String img_url;
+
+    private String rank;
     
     private int idade;
 
