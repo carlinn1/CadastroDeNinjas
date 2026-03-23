@@ -1,12 +1,12 @@
 package dev.java10x.CadastroDeNinjas.entity;
 
-import org.hibernate.annotations.ManyToAny;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,11 +23,16 @@ public class NinjaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @Column(unique = true)
     private String email;
+
+    private String img_url;
+    
     private int idade;
 
-    // Um ninja pode ter várias missões, e uma missão pode ser atribuída a vários ninjas
-    @ManyToAny
+    // Varios ninjas podem estar ligados a uma mesma missao
+    @ManyToOne
     @JoinColumn(name = "missoes_id") // foreign key para a tabela de missões
     private MissoesModel missoes;
 
