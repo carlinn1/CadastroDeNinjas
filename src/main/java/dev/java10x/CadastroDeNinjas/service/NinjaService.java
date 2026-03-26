@@ -56,9 +56,12 @@ public class NinjaService {
     }
 
     // deletar ninja
-    public void deleteNinja(Long id) {
-        ninjaRepository.deleteById(id);
-        System.err.println("Ninja deletado com sucesso!");
+    public boolean deleteNinja(Long id) {
+        if (ninjaRepository.existsById(id)) {
+            ninjaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 }
