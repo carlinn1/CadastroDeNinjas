@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.java10x.CadastroDeNinjas.dto.NinjaDTO;
 import dev.java10x.CadastroDeNinjas.entity.NinjaModel;
+import dev.java10x.CadastroDeNinjas.mapper.NinjaMapper;
 import dev.java10x.CadastroDeNinjas.repository.NinjaRepository;
 
 @Service
@@ -14,6 +16,9 @@ public class NinjaService {
 
     @Autowired
     private NinjaRepository ninjaRepository;
+
+    @Autowired
+    private NinjaMapper ninjaMapper = new NinjaMapper();
 
     // listar ninjas
     public List<NinjaModel> getNinjas() {
@@ -28,8 +33,9 @@ public class NinjaService {
     }
 
     // adicionar ninja
-    public NinjaModel addNinja(NinjaModel ninja) {
-        return ninjaRepository.save(ninja);
+    public NinjaDTO addNinja(NinjaDTO ninjaDto) {
+        NinjaModel ninja = ninjaMapper.map(ninjaDto);
+        return ninjaMapper.map(ninjaRepository.save(ninja));
     }
 
     // atualizar ninja
@@ -49,6 +55,7 @@ public class NinjaService {
     // deletar ninja
     public void deleteNinja(Long id) {
         ninjaRepository.deleteById(id);
+        System.err.println("Ninja deletado com sucesso!");
     }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.java10x.CadastroDeNinjas.dto.NinjaDTO;
 import dev.java10x.CadastroDeNinjas.entity.NinjaModel;
 import dev.java10x.CadastroDeNinjas.service.NinjaService;
 
@@ -34,7 +35,7 @@ public class NinjaController {
 
     //Adicionar ninjas
     @PostMapping("/criar")
-    public NinjaModel addNinja(@RequestBody NinjaModel ninja) {
+    public NinjaDTO addNinja(@RequestBody NinjaDTO ninja) {
         return ninjaService.addNinja(ninja);
     }
 
