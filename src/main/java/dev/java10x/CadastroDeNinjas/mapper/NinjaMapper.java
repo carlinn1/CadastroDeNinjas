@@ -8,6 +8,12 @@ import dev.java10x.CadastroDeNinjas.entity.NinjaModel;
 @Component
 public class NinjaMapper {
 
+    // O NinjaMapper é responsável por converter entre a 
+    // entidade NinjaModel e o DTO NinjaDTO.
+    // O mapper é usado para garantir que a estrutura interna da 
+    // entidade não seja exposta diretamente para o cliente, e para 
+    // facilitar a transferência de dados entre as camadas da aplicação.
+
     public NinjaModel map (NinjaDTO ninjaDTO) {
         NinjaModel ninjaModel = new NinjaModel();
         ninjaModel.setId(ninjaDTO.getId());

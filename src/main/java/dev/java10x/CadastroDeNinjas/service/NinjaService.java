@@ -2,6 +2,7 @@ package dev.java10x.CadastroDeNinjas.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,17 @@ public class NinjaService {
     private NinjaMapper ninjaMapper = new NinjaMapper();
 
     // listar ninjas
-    public List<NinjaModel> getNinjas() {
-        return ninjaRepository.findAll();
-
+    public List<NinjaDTO> getNinjas() {
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+        .map(ninjaMapper::map)
+        .collect(Collectors.toList());
     }
 
     // listar ninjas por id
-    public NinjaModel getNinjaById(Long id) {
+    public NinjaDTO getNinjaById(Long id) {
         Optional<NinjaModel> ninja = ninjaRepository.findById(id);
-        return ninja.orElse(null);
+        return ninja.map(ninjaMapper::map).orElse(null);
     }
 
     // adicionar ninja
@@ -39,7 +42,7 @@ public class NinjaService {
     }
 
     // atualizar ninja
-    public NinjaModel updateNinja(Long id, NinjaModel ninja) {
+    public NinjaDTO updateNinja(Long id, NinjaDTO ninja) {
         NinjaModel existingNinja = ninjaRepository.findById(id).orElse(null);
         if (existingNinja != null) {
             existingNinja.setNome(ninja.getNome());
@@ -47,7 +50,7 @@ public class NinjaService {
             existingNinja.setEmail(ninja.getEmail());
             existingNinja.setImg_url(ninja.getImg_url());
             existingNinja.setRank(ninja.getRank());
-            return ninjaRepository.save(existingNinja);
+            return ninjaMapper.map(ninjaRepository.save(existingNinja));
         }
         return null;
     }

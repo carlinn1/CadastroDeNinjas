@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.java10x.CadastroDeNinjas.dto.NinjaDTO;
-import dev.java10x.CadastroDeNinjas.entity.NinjaModel;
 import dev.java10x.CadastroDeNinjas.service.NinjaService;
 
 @RestController
@@ -24,12 +23,12 @@ public class NinjaController {
     private NinjaService ninjaService;
 
     @GetMapping("/listar")
-    public List<NinjaModel> getNinjas() {
+    public List<NinjaDTO> getNinjas() {
         return ninjaService.getNinjas();
     }
 
     @GetMapping("/listar/{id}")
-    public NinjaModel getNinjaById(@PathVariable Long id) {
+    public NinjaDTO getNinjaById(@PathVariable Long id) {
         return ninjaService.getNinjaById(id);
     } 
 
@@ -40,7 +39,7 @@ public class NinjaController {
     }
 
     @PutMapping("/atualizar/{id}")
-        public NinjaModel updateNinja(@PathVariable Long id, @RequestBody NinjaModel ninja) {
+        public NinjaDTO updateNinja(@PathVariable Long id, @RequestBody NinjaDTO ninja) {
             return ninjaService.updateNinja(id, ninja);
     }
 
