@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Ninjas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/ninjas-menu.css}">
+</head>
+<body>
+    <div class="bg-shape shape-a"></div>
+    <div class="bg-shape shape-b"></div>
+
+    <main class="page">
+        <header class="hero">
+            <p class="eyebrow">THYMELEAF + SPRING BOOT</p>
+            <h1>Cadastro de Ninjas</h1>
+            <p class="subtitle">Painel responsivo para visualizar os ninjas cadastrados na aplicação.</p>
+
+            <div class="hero-stats">
+                <article class="stat-card">
+                    <span class="stat-value" th:text="${totalNinjas}">0</span>
+                    <span class="stat-label">Ninjas cadastrados</span>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-value">REST</span>
+                    <span class="stat-label">Endpoint: /listar</span>
+                </article>
+            </div>
+
+            <nav class="actions">
+                <a class="btn btn-primary" th:href="@{/listar}">Ver JSON da API</a>
+                <a class="btn btn-ghost" th:href="@{/h2-console}">Abrir H2 Console</a>
+            </nav>
+        </header>
+
+        <section class="ninja-grid" th:if="${!#lists.isEmpty(ninjas)}">
+            <article class="ninja-card" th:each="ninja : ${ninjas}">
+                <div class="avatar-wrap">
+                    <img class="avatar"
+                         th:if="${ninja.img_url != null and !#strings.isEmpty(ninja.img_url)}"
+                         th:src="${ninja.img_url}"
+                         th:alt="|Foto de ${ninja.nome}|">
+
+                    <div class="avatar-fallback"
+                         th:unless="${ninja.img_url != null and !#strings.isEmpty(ninja.img_url)}"
+                         th:text="${(ninja.nome != null and !#strings.isEmpty(ninja.nome)) ? #strings.substring(ninja.nome, 0, 1) : 'N'}">
+                        N
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="title-row">
+                        <h2 th:text="${ninja.nome}">Nome do Ninja</h2>
+                        <span class="badge"
+                              th:text="${(ninja.rank != null and !#strings.isEmpty(ninja.rank)) ? ninja.rank : 'Sem rank'}">
+                            Sem rank
+                        </span>
+                    </div>
+
+                    <ul class="meta-list">
+                        <li>
+                            <span class="meta-label">ID</span>
+                            <span class="meta-value" th:text="${ninja.id}">0</span>
+                        </li>
+                        <li>
+                            <span class="meta-label">Idade</span>
+                            <span class="meta-value" th:text="${ninja.idade}">0</span>
+                        </li>
+                        <li>
+                            <span class="meta-label">Email</span>
+                            <span class="meta-value" th:text="${ninja.email}">email@exemplo.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </section>
+
+        <section class="empty-state" th:if="${#lists.isEmpty(ninjas)}">
+            <h2>Nenhum ninja cadastrado ainda</h2>
+            <p>Adicione ninjas via API e atualize esta página para visualizar os cards.</p>
+            <a class="btn btn-primary" th:href="@{/listar}">Ver endpoint de listagem</a>
+        </section>
+    </main>
+</body>
+</html>

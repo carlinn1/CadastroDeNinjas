@@ -11,12 +11,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "tb_ninjas")
 @Data // Gera getters, setters, equals, hashCode e toString automaticamente
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "missoes") // Evita recursão infinita ao imprimir o objeto
 public class NinjaModel {
     
     @Id

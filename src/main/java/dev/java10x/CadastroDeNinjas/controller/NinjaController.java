@@ -39,6 +39,7 @@ public class NinjaController {
 
     @GetMapping("/listar/{id}")
     public NinjaDTO getNinjaById(@PathVariable Long id) {
+
         return ninjaService.getNinjaById(id);
     } 
 
