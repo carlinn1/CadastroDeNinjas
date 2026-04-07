@@ -5,10 +5,55 @@
     --ink-strong: #1f2a30;
     --ink-soft: #4d5b63;
     --card: rgba(255, 255, 255, 0.74);
+    --surface-1: rgba(255, 255, 255, 0.78);
+    --surface-2: rgba(255, 255, 255, 0.85);
+    --surface-3: rgba(255, 255, 255, 0.75);
+    --input-bg: rgba(255, 255, 255, 0.9);
     --stroke: rgba(13, 83, 76, 0.16);
     --accent: #0f766e;
     --accent-strong: #0a5751;
+    --danger-bg: rgba(255, 228, 236, 0.88);
+    --danger-border: rgba(161, 18, 64, 0.24);
+    --danger-ink: #7d0f32;
+    --single-result-bg: rgba(245, 255, 252, 0.82);
+    --single-result-border: rgba(15, 118, 110, 0.3);
+    --badge-ink: #0f5132;
+    --badge-bg: #d9fbe8;
+    --badge-border: #8fe6be;
     --shadow: 0 24px 60px rgba(20, 51, 53, 0.16);
+    --page-bg:
+        radial-gradient(circle at 10% 10%, rgba(255, 199, 158, 0.55), transparent 35%),
+        radial-gradient(circle at 90% 0%, rgba(108, 224, 204, 0.42), transparent 30%),
+        linear-gradient(135deg, var(--bg-cream), var(--bg-mint));
+}
+
+:root[data-theme="dark"] {
+    --bg-cream: #0c141a;
+    --bg-mint: #09161b;
+    --bg-peach: #3e2d2a;
+    --ink-strong: #e8f1ef;
+    --ink-soft: #b2c2bf;
+    --card: rgba(13, 25, 31, 0.78);
+    --surface-1: rgba(12, 27, 35, 0.82);
+    --surface-2: rgba(10, 24, 31, 0.9);
+    --surface-3: rgba(17, 34, 42, 0.88);
+    --input-bg: rgba(7, 20, 27, 0.94);
+    --stroke: rgba(117, 176, 166, 0.24);
+    --accent: #1bb7a8;
+    --accent-strong: #7be9dd;
+    --danger-bg: rgba(81, 20, 43, 0.8);
+    --danger-border: rgba(233, 122, 160, 0.35);
+    --danger-ink: #ffd4e1;
+    --single-result-bg: rgba(12, 33, 38, 0.84);
+    --single-result-border: rgba(78, 209, 193, 0.36);
+    --badge-ink: #bbffe2;
+    --badge-bg: rgba(13, 66, 54, 0.95);
+    --badge-border: rgba(111, 245, 192, 0.45);
+    --shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+    --page-bg:
+        radial-gradient(circle at 10% 10%, rgba(255, 155, 122, 0.16), transparent 35%),
+        radial-gradient(circle at 90% 0%, rgba(92, 210, 191, 0.2), transparent 33%),
+        linear-gradient(135deg, var(--bg-cream), var(--bg-mint));
 }
 
 * {
@@ -25,11 +70,9 @@ body {
     min-height: 100vh;
     font-family: "Manrope", sans-serif;
     color: var(--ink-strong);
-    background:
-        radial-gradient(circle at 10% 10%, rgba(255, 199, 158, 0.55), transparent 35%),
-        radial-gradient(circle at 90% 0%, rgba(108, 224, 204, 0.42), transparent 30%),
-        linear-gradient(135deg, var(--bg-cream), var(--bg-mint));
+    background: var(--page-bg);
     overflow-x: hidden;
+    transition: background-color 220ms ease, color 220ms ease;
 }
 
 .bg-shape {
@@ -106,7 +149,7 @@ h1 {
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.75);
+    background: var(--surface-3);
     border: 1px solid var(--stroke);
     border-radius: 16px;
     padding: 14px 16px;
@@ -157,7 +200,126 @@ h1 {
 .btn-ghost {
     border: 1px solid rgba(15, 118, 110, 0.3);
     color: var(--accent-strong);
-    background: rgba(255, 255, 255, 0.66);
+    background: var(--surface-3);
+}
+
+.btn-theme {
+    min-width: 120px;
+}
+
+.btn-danger {
+    border: 1px solid var(--danger-border);
+    color: var(--danger-ink);
+    background: var(--danger-bg);
+}
+
+.crud-panel {
+    background: var(--surface-1);
+    border: 1px solid var(--stroke);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    padding: 28px clamp(16px, 3.4vw, 34px);
+    display: grid;
+    gap: 16px;
+    animation: fadeUp 700ms ease both;
+}
+
+.crud-header h2 {
+    margin: 8px 0 4px;
+    font-family: "Sora", sans-serif;
+    font-size: clamp(1.35rem, 3vw, 1.9rem);
+}
+
+.crud-subtitle {
+    margin: 0;
+    color: var(--ink-soft);
+}
+
+.api-feedback {
+    margin: 0;
+    min-height: 20px;
+    padding: 0;
+    font-weight: 700;
+}
+
+.api-feedback.success {
+    color: #0a6a4d;
+}
+
+.api-feedback.error {
+    color: #9a173f;
+}
+
+.api-feedback.info {
+    color: #0a5751;
+}
+
+.crud-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+}
+
+.crud-card {
+    background: var(--surface-2);
+    border: 1px solid var(--stroke);
+    border-radius: 18px;
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+}
+
+.crud-card h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-family: "Sora", sans-serif;
+}
+
+.crud-form {
+    display: grid;
+    gap: 8px;
+}
+
+.crud-form label {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    font-weight: 700;
+}
+
+.crud-form input {
+    width: 100%;
+    border: 1px solid rgba(15, 118, 110, 0.26);
+    border-radius: 10px;
+    padding: 10px 11px;
+    font: inherit;
+    color: var(--ink-strong);
+    background: var(--input-bg);
+}
+
+.crud-form input:focus {
+    outline: 2px solid rgba(15, 118, 110, 0.28);
+    border-color: rgba(15, 118, 110, 0.6);
+}
+
+.crud-form button {
+    margin-top: 2px;
+}
+
+.single-result {
+    min-height: 56px;
+    border: 1px dashed var(--single-result-border);
+    border-radius: 12px;
+    background: var(--single-result-bg);
+    padding: 10px;
+}
+
+.single-result p {
+    margin: 0;
+    font-size: 0.92rem;
+}
+
+.single-result strong {
+    color: var(--accent-strong);
 }
 
 .ninja-grid {
@@ -167,7 +329,7 @@ h1 {
 }
 
 .ninja-card {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--surface-2);
     border: 1px solid var(--stroke);
     border-radius: 22px;
     padding: 16px;
@@ -198,7 +360,7 @@ h1 {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    background: #fff;
+    background: var(--surface-3);
     color: var(--accent-strong);
     font-family: "Sora", sans-serif;
     font-size: 2rem;
@@ -232,11 +394,21 @@ h2 {
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.03em;
-    color: #0f5132;
-    background: #d9fbe8;
-    border: 1px solid #8fe6be;
+    color: var(--badge-ink);
+    background: var(--badge-bg);
+    border: 1px solid var(--badge-border);
     border-radius: 999px;
     padding: 6px 10px;
+}
+
+.ninja-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-small {
+    padding: 8px 12px;
+    font-size: 0.85rem;
 }
 
 .meta-list {
@@ -268,7 +440,7 @@ h2 {
 }
 
 .empty-state {
-    background: rgba(255, 255, 255, 0.86);
+    background: var(--surface-1);
     border: 1px solid var(--stroke);
     border-radius: 22px;
     box-shadow: var(--shadow);
@@ -312,6 +484,10 @@ h2 {
     .meta-value {
         max-width: 100%;
         text-align: left;
+    }
+
+    .crud-panel {
+        border-radius: 22px;
     }
 }
 

@@ -34,8 +34,94 @@
             <nav class="actions">
                 <a class="btn btn-primary" th:href="@{/listar}">Ver JSON da API</a>
                 <a class="btn btn-ghost" th:href="@{/h2-console}">Abrir H2 Console</a>
+                <button id="theme-toggle" class="btn btn-ghost btn-theme" type="button" aria-label="Alternar tema">
+                    Tema: Claro
+                </button>
             </nav>
         </header>
+
+        <section class="crud-panel">
+            <header class="crud-header">
+                <p class="eyebrow">OPERACOES DA CONTROLLER</p>
+                <h2>GET, POST, PUT e DELETE</h2>
+                <p class="crud-subtitle">Use os formularios abaixo para consumir os endpoints da API sem sair do frontend.</p>
+            </header>
+
+            <p id="api-feedback" class="api-feedback" aria-live="polite"></p>
+
+            <div class="crud-grid">
+                <article class="crud-card">
+                    <h3>GET /listar/{id}</h3>
+                    <form id="get-by-id-form" class="crud-form">
+                        <label for="get-id">ID do ninja</label>
+                        <input id="get-id" name="id" type="number" min="1" required>
+                        <button type="submit" class="btn btn-primary">Buscar ninja</button>
+                    </form>
+                    <div id="single-result" class="single-result">
+                        <p>Busque um ninja para exibir os dados aqui.</p>
+                    </div>
+                </article>
+
+                <article class="crud-card">
+                    <h3>POST /criar</h3>
+                    <form id="create-form" class="crud-form">
+                        <label for="create-nome">Nome</label>
+                        <input id="create-nome" name="nome" type="text" required>
+
+                        <label for="create-email">Email</label>
+                        <input id="create-email" name="email" type="email" required>
+
+                        <label for="create-img">URL da imagem</label>
+                        <input id="create-img" name="img_url" type="url" placeholder="https://..." required>
+
+                        <label for="create-rank">Rank</label>
+                        <input id="create-rank" name="rank" type="text" required>
+
+                        <label for="create-idade">Idade</label>
+                        <input id="create-idade" name="idade" type="number" min="1" required>
+
+                        <button type="submit" class="btn btn-primary">Criar ninja</button>
+                    </form>
+                </article>
+
+                <article class="crud-card">
+                    <h3>PUT /atualizar/{id}</h3>
+                    <form id="update-form" class="crud-form">
+                        <label for="update-id">ID do ninja</label>
+                        <input id="update-id" name="id" type="number" min="1" required>
+                        <button id="load-for-update" type="button" class="btn btn-ghost">Carregar dados para editar</button>
+
+                        <label for="update-nome">Nome</label>
+                        <input id="update-nome" name="nome" type="text" required>
+
+                        <label for="update-email">Email</label>
+                        <input id="update-email" name="email" type="email" required>
+
+                        <label for="update-img">URL da imagem</label>
+                        <input id="update-img" name="img_url" type="url" placeholder="https://..." required>
+
+                        <label for="update-rank">Rank</label>
+                        <input id="update-rank" name="rank" type="text" required>
+
+                        <label for="update-idade">Idade</label>
+                        <input id="update-idade" name="idade" type="number" min="1" required>
+
+                        <button type="submit" class="btn btn-primary">Atualizar ninja</button>
+                    </form>
+                </article>
+
+                <article class="crud-card">
+                    <h3>DELETE /deletar/{id}</h3>
+                    <form id="delete-form" class="crud-form">
+                        <label for="delete-id">ID do ninja</label>
+                        <input id="delete-id" name="id" type="number" min="1" required>
+                        <button type="submit" class="btn btn-danger">Deletar ninja</button>
+                    </form>
+
+                    <button id="refresh-list" class="btn btn-ghost" type="button">Atualizar lista da tela</button>
+                </article>
+            </div>
+        </section>
 
         <section class="ninja-grid" th:if="${!#lists.isEmpty(ninjas)}">
             <article class="ninja-card" th:each="ninja : ${ninjas}">
@@ -75,6 +161,15 @@
                             <span class="meta-value" th:text="${ninja.email}">email@exemplo.com</span>
                         </li>
                     </ul>
+
+                    <div class="ninja-actions">
+                        <button
+                            type="button"
+                            class="btn btn-ghost btn-small edit-ninja-btn"
+                            th:attr="data-id=${ninja.id},data-nome=${ninja.nome},data-email=${ninja.email},data-img=${ninja.img_url},data-rank=${ninja.rank},data-idade=${ninja.idade}">
+                            Editar este ninja
+                        </button>
+                    </div>
                 </div>
             </article>
         </section>
@@ -85,5 +180,7 @@
             <a class="btn btn-primary" th:href="@{/listar}">Ver endpoint de listagem</a>
         </section>
     </main>
+
+    <script th:src="@{/js/ninjas-crud.js}"></script>
 </body>
 </html>
